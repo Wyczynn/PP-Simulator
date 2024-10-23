@@ -8,7 +8,7 @@ public class Creature
 {
 
     private string name = "Unknown";
-    public string? Name
+    public string Name
     {
         get => name;
         init
@@ -34,11 +34,9 @@ public class Creature
     public int Level
     {
         get => level;
-        init
-        {
-            level = Math.Max(1, Math.Min(10, value));
-        }
+        init => level = Math.Max(1, Math.Min(10, value));
     }
+
     public string Info => $"{Name} [{Level}]";
 
     public Creature() { }
@@ -54,12 +52,32 @@ public class Creature
         Console.WriteLine($"Hi, I'm {Name}, my level is {Level}.");
     }
 
-
     public void Upgrade()
     {
         if (level >= 10)
             return;
 
         level++;
+    }
+
+    public void Go(Direction direction)
+    {
+        Console.WriteLine($"{Name} goes {direction.ToString().ToLower()}");
+    }
+
+    public void Go(Direction[] directions)
+    {
+        foreach(var direction in directions)
+        {
+            Go(direction);
+        }
+    }
+
+    public void Go(string directionArguments)
+    {
+        foreach(var direction in DirectionParser.Parse(directionArguments))
+        {
+            Go(direction);
+        }
     }
 }
