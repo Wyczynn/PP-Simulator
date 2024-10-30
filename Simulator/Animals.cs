@@ -13,20 +13,11 @@ public class Animals
             if (value == null)
                 return;
 
-            string temp = String.Join(" ", value.Trim().Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries));
-
-            if (temp.Length < 3)
-            {
-                while (temp.Length < 3)
-                {
-                    temp += "#";
-                }
-            }
-            temp = temp[0].ToString().ToUpper() + temp[1..];
-            description = temp[..Math.Min(temp.Length, 15)].TrimEnd();
+            description = Validator.Shortener(value, 3, 15, '#');
         }
     }
     public uint Size { get; set; } = 3;
 
-    public string Info => $"{Description} <{Size}>";
+    public virtual string Info => $"{Description} <{Size}>";
+    public override string ToString() => $"{GetType().Name.ToUpper()}: {Info}";
 }

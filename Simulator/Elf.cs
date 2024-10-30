@@ -8,10 +8,11 @@ public class Elf : Creature
     public int Agility
     {
         get => agility;
-        init => agility = Math.Max(0, Math.Min(10, value));
+        init => agility = Validator.Limiter(value, 0, 10);
     }
 
     public override int Power => 8 * Level + 2 * Agility;
+    public override string Info => $"{Name} [{Level}][{Agility}]";
 
     int singCount = 0;
 

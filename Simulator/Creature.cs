@@ -16,17 +16,7 @@ public abstract class Creature
             if (value == null)
                 return;
 
-            string temp = String.Join(" ", value.Trim().Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries));
-
-            if (temp.Length < 3)
-            {
-                while(temp.Length < 3)
-                {
-                    temp += "#";
-                }
-            }
-            temp = temp[0].ToString().ToUpper() + temp[1..];
-            name = temp[..Math.Min(temp.Length, 25)].TrimEnd();
+            name = Validator.Shortener(value, 3, 25, '#');
         }
     }
 
@@ -34,12 +24,12 @@ public abstract class Creature
     public int Level
     {
         get => level;
-        init => level = Math.Max(1, Math.Min(10, value));
+        init => level = Validator.Limiter(value, 1, 10);
     }
 
-    public abstract int Power { get;}
+    public abstract int Power { get; }
 
-    public string Info => $"{Name} [{Level}]";
+    public abstract string Info { get; }
 
     public Creature() { }
 
@@ -65,7 +55,7 @@ public abstract class Creature
 
     public void Go(Direction[] directions)
     {
-        foreach(var direction in directions)
+        foreach (var direction in directions)
         {
             Go(direction);
         }
@@ -73,10 +63,14 @@ public abstract class Creature
 
     public void Go(string directionArguments)
     {
-        foreach(var direction in DirectionParser.Parse(directionArguments))
+        foreach (var direction in DirectionParser.Parse(directionArguments))
         {
             Go(direction);
         }
     }
     public abstract void SayHi();
+
+    public override string ToString() => $"{GetType().Name.ToUpper()}: {Info}";
+
 }
+
