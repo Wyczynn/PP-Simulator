@@ -4,7 +4,7 @@ using System.Xml.Linq;
 
 namespace Simulator;
 
-public class Creature
+public abstract class Creature
 {
 
     private string name = "Unknown";
@@ -37,6 +37,8 @@ public class Creature
         init => level = Math.Max(1, Math.Min(10, value));
     }
 
+    public abstract int Power { get;}
+
     public string Info => $"{Name} [{Level}]";
 
     public Creature() { }
@@ -47,10 +49,6 @@ public class Creature
         Level = level;
     }
 
-    public void SayHi()
-    {
-        Console.WriteLine($"Hi, I'm {Name}, my level is {Level}.");
-    }
 
     public void Upgrade()
     {
@@ -80,4 +78,5 @@ public class Creature
             Go(direction);
         }
     }
+    public abstract void SayHi();
 }
