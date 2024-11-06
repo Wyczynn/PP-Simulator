@@ -14,7 +14,7 @@ public readonly struct Point
             Direction.Right => (1, 0),
             Direction.Down => (0, -1),
             Direction.Left => (-1, 0),
-            _ => throw new NotImplementedException()
+            _ => throw new NotImplementedException(),
         };
 
         return new Point(X + goNext.Item1, Y + goNext.Item2);
