@@ -14,7 +14,7 @@ public class Elf : Creature
     public override int Power => 8 * Level + 2 * Agility;
     public override string Info => $"{Name} [{Level}][{Agility}]";
 
-    int singCount = 0;
+    private int singCount = 0;
 
     public Elf() : base() { }
     public Elf(string name = "Unknown", int level = 1, int agility = 0) : base(name, level)
