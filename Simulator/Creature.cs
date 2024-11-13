@@ -48,27 +48,29 @@ public abstract class Creature
         level++;
     }
 
-    public void Go(Direction direction)
+    public string Go(Direction direction) => $"{direction.ToString().ToLower()}";
+    public string[] Go(Direction[] directions)
     {
-        Console.WriteLine($"{Name} goes {direction.ToString().ToLower()}");
-    }
-
-    public void Go(Direction[] directions)
-    {
+        List<string> list = new List<string>();
         foreach (var direction in directions)
         {
-            Go(direction);
+            list.Add(Go(direction));
         }
+
+        return list.ToArray();
     }
 
-    public void Go(string directionArguments)
+    public string[] Go(string directionArguments)
     {
+        List<string> list = new List<string>();
         foreach (var direction in DirectionParser.Parse(directionArguments))
         {
-            Go(direction);
+            list.Add(Go(direction));
         }
+
+        return list.ToArray();
     }
-    public abstract void SayHi();
+    public abstract string Greeting();
 
     public override string ToString() => $"{GetType().Name.ToUpper()}: {Info}";
 
