@@ -9,15 +9,13 @@ public static class Validator
 
     public static string Shortener(string value, int min, int max, char placeholder)
     {
-        string temp = String.Join(" ", value.Trim().Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries));
+        string temp = value.Trim();
 
-        if (temp.Length < min)
+        while (temp.Length < min)
         {
-            while (temp.Length < min)
-            {
-                temp += placeholder;
-            }
+            temp += placeholder;
         }
+
         temp = temp[0].ToString().ToUpper() + temp[1..];
         temp = temp[..Math.Min(temp.Length, max)].TrimEnd();
 
