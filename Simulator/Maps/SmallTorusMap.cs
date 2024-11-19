@@ -32,7 +32,7 @@ public class SmallTorusMap : Map
 
     private Point ValidatePoint(Point p)
     {
-        Point temp = new Point((p.X + 20) % Size, (p.Y + 20) % Size);
+        Point temp = new Point((p.X + Size) % Size, (p.Y + Size) % Size);
 
         return temp;
     }
