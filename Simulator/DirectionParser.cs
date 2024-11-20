@@ -2,12 +2,11 @@
 
 public static class DirectionParser
 {
-    public static Direction[] Parse(string args)
+    public static List<Direction> Parse(string args)
     {
         List<Direction> resultList = new();
         foreach (var arg in args)
         {
-
             switch (arg.ToString().ToLower())
             {
                 case "u":
@@ -28,6 +27,6 @@ public static class DirectionParser
             }
         }
 
-        return resultList.ToArray();
+        return resultList;
     }
 }

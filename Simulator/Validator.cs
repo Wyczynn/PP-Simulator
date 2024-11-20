@@ -10,6 +10,7 @@ public static class Validator
     public static string Shortener(string value, int min, int max, char placeholder)
     {
         string temp = value.Trim();
+        temp = temp[..Math.Min(temp.Length, max)].TrimEnd();
 
         while (temp.Length < min)
         {
@@ -17,8 +18,6 @@ public static class Validator
         }
 
         temp = temp[0].ToString().ToUpper() + temp[1..];
-        temp = temp[..Math.Min(temp.Length, max)].TrimEnd();
-
 
         return temp;
     }

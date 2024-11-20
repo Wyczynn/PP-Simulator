@@ -23,6 +23,7 @@ namespace TestSimulator
         [InlineData("short", 10, 15, '*', "Short*****")]
         [InlineData("TooLongOfAString", 5, 10, '-', "TooLongOfA")]
         [InlineData(" spaces ", 2, 8, '#', "Spaces")]
+        [InlineData("a    b", 3, 5, '#', "A##")]
         public void Shortener_ValidString_ReturnsFormattedString(string value, int min, int max, char placeholder, string expected)
         {
             var result = Validator.Shortener(value, min, max, placeholder);
