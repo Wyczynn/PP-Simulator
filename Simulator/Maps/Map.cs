@@ -65,4 +65,16 @@ public abstract class Map
     /// <param name="d">Direction.</param>
     /// <returns>Next point.</returns>
     public abstract Point NextDiagonal(Point p, Direction d);
+
+    public abstract void Add(Creature creature, Point position);
+    public abstract void Remove(Creature creature, Point position);
+
+    public virtual void Move(Creature creature, Point currentPosition, Point endPosition)
+    {
+        Remove(creature, currentPosition);
+        Add(creature, endPosition);
+    }
+
+    public List<Creature>? At(int x, int y) => At(new Point(x, y));
+    public abstract List<Creature>? At(Point point);
 }

@@ -34,4 +34,14 @@ public readonly struct Point
 
         return new Point(X + goNextDiagonal.Item1, Y + goNextDiagonal.Item2);
     }
+
+    public static bool operator == (Point a, Point b)
+    {
+        return (a.X == b.X) && (a.Y == b.Y);
+    }
+
+    public static bool operator != (Point a, Point b)
+    {
+        return (a.X != b.X) || (a.Y != b.Y);
+    }
 }

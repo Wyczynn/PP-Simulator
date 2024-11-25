@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Simulator.Maps;
+using System.ComponentModel.DataAnnotations;
 using System.Reflection.Emit;
 using System.Xml.Linq;
 
@@ -6,6 +7,9 @@ namespace Simulator;
 
 public abstract class Creature
 {
+
+    public Map? Map { get; private set; }
+    public Point Position { get; private set; }
 
     private string name = "Unknown";
     public string Name
@@ -48,28 +52,27 @@ public abstract class Creature
         level++;
     }
 
-    public string Go(Direction direction) => $"{direction.ToString().ToLower()}";
-    public string[] Go(Direction[] directions)
+    public virtual void SetMap(Map map, Point point)
     {
-        List<string> list = new List<string>();
-        foreach (var direction in directions)
-        {
-            list.Add(Go(direction));
-        }
+        Map = map;
+        Position = point;
 
-        return list.ToArray();
+        map.Add(this, Position);
     }
 
-    public string[] Go(string directionArguments)
+    public void Go(Direction direction)
     {
-        List<string> list = new List<string>();
-        foreach (var direction in DirectionParser.Parse(directionArguments))
-        {
-            list.Add(Go(direction));
-        }
+        if (Map == null) throw new ArgumentNullException("Map not set!");
 
-        return list.ToArray();
+        Point NextPos = Map.Next(Position, direction);
+
+        //if position didn't change, do nothing
+        if (NextPos == Position) return;
+
+        Map.Move(this, Position, NextPos);
+        Position = NextPos;
     }
+
     public abstract string Greeting();
 
     public override string ToString() => $"{GetType().Name.ToUpper()}: {Info}";
