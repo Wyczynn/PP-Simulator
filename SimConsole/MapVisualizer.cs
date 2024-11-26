@@ -1,7 +1,7 @@
-﻿using Simulator.Maps;
-using System.IO.Pipes;
+﻿using Simulator;
+using Simulator.Maps;
 
-namespace Simulator;
+namespace SimConsole;
 
 public class MapVisualizer
 {

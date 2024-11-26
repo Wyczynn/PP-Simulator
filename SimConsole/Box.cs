@@ -1,4 +1,4 @@
-﻿namespace Simulator;
+﻿namespace SimConsole;
 
 public static class Box
 {
