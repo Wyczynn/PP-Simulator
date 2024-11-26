@@ -38,7 +38,7 @@ public class Simulation
     /// Creature which will be moving current turn.
     /// </summary>
     private int currentCreatureIndex = 0;
-    public Creature CurrentCreature => Creatures[currentCreatureIndex++ % Creatures.Count];
+    public Creature CurrentCreature => Creatures[currentCreatureIndex];
 
     /// <summary>
     /// Lowercase name of direction which will be used in current turn.
@@ -85,5 +85,6 @@ public class Simulation
         if (Finished) throw new InvalidOperationException("Simluations already finished!!!");
 
         CurrentCreature.Go(movesList[movesIndex++]);
+        currentCreatureIndex = (currentCreatureIndex + 1) % Creatures.Count;
     }
 }
