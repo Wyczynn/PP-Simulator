@@ -7,16 +7,15 @@ namespace Runner
     {
         static void Main(string[] args)
         {
-            Orc orc = new Orc();
-
-            SmallSquareMap map = new(10);
-
-            orc.SetMap(map, new Point(4, 5));
+            //List<Creature> creatures = new List<Creature>() { new Orc("Filip"), new Orc("Andrzej"), new Orc("Damian") };
+            //List<Point> positions = new List<Point>() { new Point(1, 2), new Point(3, 4), new Point(5, 6) };
 
 
-            Console.WriteLine(map.At(4, 5)?.First().Position); 
-            map.Remove(orc, orc.Position);
-            Console.WriteLine(map.At(4, 5)?.First().Position);
+            //Simulation sim = new Simulation(new SmallSquareMap(7), creatures, positions, "uuddrlrludrl");
+            //while (!sim.Finished)
+            //{
+            //    sim.Turn();
+            //}
         }
     }
 }

@@ -1,0 +1,89 @@
+﻿using Simulator.Maps;
+using Simulator;
+
+public class Simulation
+{
+    /// <summary>
+    /// Simulation's map.
+    /// </summary>
+    public Map Map { get; }
+
+    /// <summary>
+    /// Creatures moving on the map.
+    /// </summary>
+    public List<Creature> Creatures { get; }
+
+    /// <summary>
+    /// Starting positions of creatures.
+    /// </summary>
+    public List<Point> Positions { get; }
+
+    /// <summary>
+    /// Cyclic list of creatures moves. 
+    /// Bad moves are ignored - use DirectionParser.
+    /// First move is for first creature, second for second and so on.
+    /// When all creatures make moves, 
+    /// next move is again for first creature and so on.
+    /// </summary>
+    public string Moves { get; }
+    private readonly List<Direction> movesList;
+    private int movesIndex = 0;
+
+    /// <summary>
+    /// Has all moves been done?
+    /// </summary>
+    public bool Finished => movesIndex == movesList.Count;
+
+    /// <summary>
+    /// Creature which will be moving current turn.
+    /// </summary>
+    private int currentCreatureIndex = 0;
+    public Creature CurrentCreature => Creatures[currentCreatureIndex++ % Creatures.Count];
+
+    /// <summary>
+    /// Lowercase name of direction which will be used in current turn.
+    /// </summary>
+    public string CurrentMoveName => movesList[movesIndex].ToString().ToLower();
+
+    /// <summary>
+    /// Simulation constructor.
+    /// Throw errors:
+    /// if creatures' list is empty,
+    /// if number of creatures differs from 
+    /// number of starting positions.
+    /// </summary>
+    public Simulation(Map map, List<Creature> creatures,
+        List<Point> positions, string moves)
+    {
+        if (creatures.Count == 0) throw new ArgumentException("Creatures list is Empty!");
+        if (creatures.Count != positions.Count) throw new ArgumentException("Positions and Creatures don't match!");
+
+        Map = map;
+        Creatures = creatures;
+        Positions = positions;
+        Moves = moves;
+
+        for (int i = 0; i < creatures.Count; i++)
+        {
+            if (Creatures[i].Map != Map)
+            {
+                //ponieważ sprawdziliśmy że positions i creatures mają taką samą długość
+                Creatures[i].SetMap(Map, Positions[i]);
+            }
+        }
+
+        movesList = DirectionParser.Parse(Moves);
+    }
+
+
+    /// <summary>
+    /// Makes one move of current creature in current direction.
+    /// Throw error if simulation is finished.
+    /// </summary>
+    public void Turn()
+    {
+        if (Finished) throw new InvalidOperationException("Simluations already finished!!!");
+
+        CurrentCreature.Go(movesList[movesIndex++]);
+    }
+}
