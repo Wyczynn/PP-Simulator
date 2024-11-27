@@ -1,15 +1,11 @@
 ﻿using Simulator.Maps;
-using System.ComponentModel.DataAnnotations;
-using System.Reflection.Emit;
-using System.Xml.Linq;
 
 namespace Simulator;
 
-public abstract class Creature
+public abstract class Creature : IMappable
 {
-
-    public Map? Map { get; private set; }
-    public Point Position { get; private set; }
+    public Map? Map { get; set; }
+    public Point Position { get; set; }
 
     private string name = "Unknown";
     public string Name
@@ -34,6 +30,8 @@ public abstract class Creature
     public abstract int Power { get; }
 
     public abstract string Info { get; }
+
+    public char Symbol => GetType().Name[0];
 
     public Creature() { }
 

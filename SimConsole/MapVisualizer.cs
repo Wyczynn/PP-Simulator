@@ -69,8 +69,8 @@ public class MapVisualizer
         Console.Write(Box.Vertical);
         for (int i = 0; i < map.SizeX; i++)
         {
-            List<Creature>? creaturesAt = map.At(i, map.SizeY - 1 - row);
-            char toDraw = creaturesAt?.Count > 1 ? 'X' : creaturesAt?.First().GetType().Name[0] ?? ' ';
+            List<IMappable>? creaturesAt = map.At(i, map.SizeY - 1 - row);
+            char toDraw = creaturesAt?.Count > 1 ? 'X' : creaturesAt?.First().Symbol ?? ' ';
 
             Console.Write($"{toDraw}{Box.Vertical}");
 

@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace Simulator.Maps;
+﻿namespace Simulator.Maps;
 /// <summary>
 /// Map of points.
 /// </summary>
@@ -12,7 +10,7 @@ public abstract class Map
         get => sizeX;
         init
         {
-            if(value < 5) throw new ArgumentOutOfRangeException(nameof(sizeX) + "too narrow");
+            if (value < 5) throw new ArgumentOutOfRangeException(nameof(sizeX) + "too narrow");
 
             sizeX = value;
         }
@@ -33,7 +31,7 @@ public abstract class Map
         SizeX = sizeX;
         SizeY = sizeY;
     }
-   
+
 
     /// <summary>
     /// Check if give point belongs to the map.
@@ -66,15 +64,16 @@ public abstract class Map
     /// <returns>Next point.</returns>
     public abstract Point NextDiagonal(Point p, Direction d);
 
-    public abstract void Add(Creature creature, Point position);
-    public abstract void Remove(Creature creature, Point position);
+    public abstract void Add(IMappable mappable, Point position);
+    public abstract void Remove(IMappable mappable, Point position);
 
-    public virtual void Move(Creature creature, Point currentPosition, Point endPosition)
+    public virtual void Move(IMappable mappable, Point currentPosition, Point endPosition)
     {
-        Remove(creature, currentPosition);
-        Add(creature, endPosition);
+        Remove(mappable, currentPosition);
+        Remove(mappable, currentPosition);
+        Add(mappable, endPosition);
     }
 
-    public List<Creature>? At(int x, int y) => At(new Point(x, y));
-    public abstract List<Creature>? At(Point point);
+    public List<IMappable>? At(int x, int y) => At(new Point(x, y));
+    public abstract List<IMappable>? At(Point point);
 }

@@ -2,30 +2,30 @@
 
 public abstract class SmallMap : Map
 {
-    readonly List<Creature>?[,] fields;
+    readonly List<IMappable>?[,] fields;
 
     protected SmallMap(int sizeX, int sizeY) : base(sizeX, sizeY)
     {
         if (sizeX > 20) throw new ArgumentOutOfRangeException(nameof(sizeX) + "too wide");
         if (sizeY > 20) throw new ArgumentOutOfRangeException(nameof(sizeY) + "too tall");
 
-        fields = new List<Creature>?[sizeX, sizeY];
+        fields = new List<IMappable>?[sizeX, sizeY];
     }
 
-    public override void Add(Creature creature, Point position)
+    public override void Add(IMappable mappable, Point position)
     {
-        fields[position.X, position.Y] ??= new List<Creature>();
+        fields[position.X, position.Y] ??= new List<IMappable>();
 
-        fields[position.X, position.Y]?.Add(creature);
+        fields[position.X, position.Y]?.Add(mappable);
     }
 
-    public override void Remove(Creature creature, Point position)
+    public override void Remove(IMappable mappable, Point position)
     {
-        fields[position.X, position.Y]?.Remove(creature);
+        fields[position.X, position.Y]?.Remove(mappable);
 
         if (fields[position.X, position.Y]?.Count == 0)
             fields[position.X, position.Y] = null;
     }
 
-    public override List<Creature>? At(Point position) => fields[position.X, position.Y];
+    public override List<IMappable>? At(Point position) => fields[position.X, position.Y];
 }
