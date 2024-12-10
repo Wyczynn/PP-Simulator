@@ -27,14 +27,25 @@ namespace SimConsole
             //Simulation simulation = new(map, creatures, points, moves);
             //MapVisualizer mapVisualizer = new(simulation.Map);
 
-            SmallTorusMap map = new(6, 8);
-            List<IMappable> mappables = [new Orc("Gorbag"), new Elf("Elandor"), new Animals { Description = "Króliki", Size = 10},
-                                            new Birds {Description = "Orły", Size = 10, CanFly = true},
-                                            new Birds {Description = "Strusie", Size = 8, CanFly = false}];
-            List<Point> points = [new(2, 2), new(3, 1), new(4, 2), new(3, 5), new(3, 3)];
-            string moves = "dlrludllrlrdurldurllldddurrr";
+            //SmallTorusMap map = new(6, 8);
+            //List<IMappable> mappables = [new Orc("Gorbag"), new Elf("Elandor"), new Animals { Description = "Króliki", Size = 10},
+            //                                new Birds {Description = "Orły", Size = 10, CanFly = true},
+            //                                new Birds {Description = "Strusie", Size = 8, CanFly = false}];
 
-            Simulation simulation = new(map, mappables, points, moves);
+            BigBounceMap bigBounceMap = new BigBounceMap(8, 6);
+
+            Elf elf = new Elf();
+            Orc orc = new Orc();
+            Animals rabbits = new Animals() { Description = "Rabbits" };
+            Birds ostrichs = new Birds() { Description = "Ostrichs" };
+            Birds eagles = new Birds() { Description = "Eagles" };
+
+            List<IMappable> mappables = new List<IMappable>() { elf, orc, rabbits, ostrichs, eagles };
+            List<Point> points = [new(7, 2), new(4, 5), new(4, 2), new(7, 5), new(3, 3)];
+
+            string moves = "rrrrrdllrlrdurldurllldddurrr";
+
+            Simulation simulation = new(bigBounceMap, mappables, points, moves);
             MapVisualizer mapVisualizer = new(simulation.Map);
 
             Console.WriteLine("Starting Positions: ");
