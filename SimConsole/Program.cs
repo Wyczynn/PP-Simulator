@@ -46,25 +46,30 @@ namespace SimConsole
             string moves = "rrrrrdllrlrdurldurllldddurrr";
 
             Simulation simulation = new(bigBounceMap, mappables, points, moves);
-            MapVisualizer mapVisualizer = new(simulation.Map);
+            SimulationHisotry simulationHisotry = new(simulation);
 
-            Console.WriteLine("Starting Positions: ");
-            mapVisualizer.Draw();
-            Console.WriteLine("Press any key to continue...");
-            Console.ReadLine();
+            simulationHisotry.DispalyMoveInfo(5);
+            simulationHisotry.DispalyMoveInfo(10);
+            simulationHisotry.DispalyMoveInfo(15);
+            simulationHisotry.DispalyMoveInfo(20);
 
-            while (!simulation.Finished)
-            {
-                Console.WriteLine($"<{simulation.CurrentCreature.GetType().Name} - " +
-                    $"{(simulation.CurrentCreature is Creature creature ? creature.Name + " from " + creature.Position : "")}> " +
-                    $"goes {simulation.CurrentMoveName}");
+            //Console.WriteLine("Starting Positions: ");
+            //Console.WriteLine(MapVisualizer.GetMap(simulation.Map));
+            //Console.WriteLine("Press any key to continue...");
+            //Console.ReadLine();
 
-                simulation.Turn();
-                mapVisualizer.Draw();
+            //while (!simulation.Finished)
+            //{
+            //    Console.WriteLine($"<{simulation.CurrentCreature.GetType().Name} - " +
+            //        $"{(simulation.CurrentCreature is Creature creature ? creature.Name + " from " + creature.Position : "")}> " +
+            //        $"goes {simulation.CurrentMoveName}");
 
-                Console.WriteLine("Press any key to continue...");
-                Console.ReadLine();
-            }
+            //    simulation.Turn();
+            //    Console.WriteLine(MapVisualizer.GetMap(simulation.Map));
+
+            //    Console.WriteLine("Press any key to continue...");
+            //    Console.ReadLine();
+            //}
         }
     }
 }

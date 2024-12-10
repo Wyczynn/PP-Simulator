@@ -3,78 +3,94 @@ using Simulator.Maps;
 
 namespace SimConsole;
 
-public class MapVisualizer
+public static class MapVisualizer
 {
-    private readonly Map map;
-
-    public MapVisualizer(Map map) => this.map = map;
-
-    public void Draw()
+    public static string GetMap(Map map)
     {
-        DrawTop();
+        string temp = "";
+
+        temp += DrawTop(map.SizeX);
         for (int i = 0; i < map.SizeY; i++)
         {
-            DrawCreatures(i);
+            temp += DrawCreaturesMap(i, map.SizeX, map);
 
             if (i != map.SizeY - 1)
-                DrawMiddle();
+                temp += DrawMiddle(map.SizeX);
         }
-        DrawBottom();
+        temp += DrawBottom(map.SizeX);
+
+        return temp;
     }
 
-    private void DrawTop()
+    private static string DrawTop(int SizeX)
     {
-        Console.Write(Box.TopLeft);
-        for (int i = 1; i < map.SizeX; i++)
+        string temp = "";
+
+        temp += Box.TopLeft;
+        for (int i = 1; i < SizeX; i++)
         {
-            Console.Write(Box.Horizontal);
-            Console.Write(Box.TopMid);
-        }
-        Console.Write(Box.Horizontal);
-        Console.Write(Box.TopRight);
+            temp += Box.Horizontal;
+            temp += Box.TopMid;
+        }   
+        temp += Box.Horizontal;
+        temp += Box.TopRight;
 
-        Console.WriteLine();
+        temp += "\n";
+
+        return temp;
     }
 
-    private void DrawBottom()
+    private static string DrawBottom(int SizeX)
     {
-        Console.Write(Box.BottomLeft);
-        for (int i = 1; i < map.SizeX; i++)
+        string temp = "";
+
+        temp += Box.BottomLeft;
+        for (int i = 1; i < SizeX; i++)
         {
-            Console.Write(Box.Horizontal);
-            Console.Write(Box.BottomMid);
+            temp += Box.Horizontal;
+            temp += Box.BottomMid;
         }
-        Console.Write(Box.Horizontal);
-        Console.Write(Box.BottomRight);
+        temp += Box.Horizontal;
+        temp += Box.BottomRight;
 
-        Console.WriteLine();
+        temp += "\n";
+
+        return temp;
     }
 
-    private void DrawMiddle()
+    private static string DrawMiddle(int SizeX)
     {
-        Console.Write(Box.MidLeft);
-        for (int i = 1; i < map.SizeX; i++)
+        string temp = "";
+
+        temp += Box.MidLeft;
+        for (int i = 1; i < SizeX; i++)
         {
-            Console.Write(Box.Horizontal);
-            Console.Write(Box.Cross);
+            temp += Box.Horizontal;
+            temp += Box.Cross;
         }
-        Console.Write(Box.Horizontal);
-        Console.Write(Box.MidRight);
+        temp += Box.Horizontal;
+        temp += Box.MidRight;
 
-        Console.WriteLine();
+        temp += "\n";
+
+        return temp;
     }
 
-    private void DrawCreatures(int row)
+    private static string DrawCreaturesMap(int row, int SizeX, Map map)
     {
-        Console.Write(Box.Vertical);
-        for (int i = 0; i < map.SizeX; i++)
+        string temp = "";
+
+        temp += Box.Vertical;
+        for (int i = 0; i < SizeX; i++)
         {
             List<IMappable>? creaturesAt = map.At(i, map.SizeY - 1 - row);
             char toDraw = creaturesAt?.Count > 1 ? 'X' : creaturesAt?.First().Symbol ?? ' ';
 
-            Console.Write($"{toDraw}{Box.Vertical}");
+            temp += $"{toDraw}{Box.Vertical}";
 
         }
-        Console.WriteLine();
+        temp += "\n";
+
+        return temp;
     }
 }
