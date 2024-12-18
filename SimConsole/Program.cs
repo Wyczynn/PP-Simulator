@@ -46,12 +46,12 @@ namespace SimConsole
             string moves = "rrrrrdllrlrdurldurllldddurrr";
 
             Simulation simulation = new(bigBounceMap, mappables, points, moves);
-            SimulationHisotry simulationHisotry = new(simulation);
+            SimulationHistory simulationHistory = new(simulation);
 
-            simulationHisotry.DispalyMoveInfo(5);
-            simulationHisotry.DispalyMoveInfo(10);
-            simulationHisotry.DispalyMoveInfo(15);
-            simulationHisotry.DispalyMoveInfo(20);
+            foreach(var turn in simulationHistory.TurnLogs)
+            {
+                Console.WriteLine(turn.Mappable + turn.Move + "\t" + turn.Symbols);
+            }
 
             //Console.WriteLine("Starting Positions: ");
             //Console.WriteLine(MapVisualizer.GetMap(simulation.Map));
