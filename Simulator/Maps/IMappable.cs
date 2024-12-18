@@ -10,5 +10,7 @@ public interface IMappable
     public void SetMap(Map map, Point point);
 
     public void Go(Direction direction);
+
+    public string ToString();
 }
 
