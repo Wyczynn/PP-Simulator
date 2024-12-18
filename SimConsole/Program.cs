@@ -48,10 +48,7 @@ namespace SimConsole
             Simulation simulation = new(bigBounceMap, mappables, points, moves);
             SimulationHistory simulationHistory = new(simulation);
 
-            foreach(var turn in simulationHistory.TurnLogs)
-            {
-                Console.WriteLine(turn.Mappable + turn.Move + "\t" + turn.Symbols);
-            }
+            LogVisulizer visualizer = new LogVisulizer(simulationHistory);
 
             //Console.WriteLine("Starting Positions: ");
             //Console.WriteLine(MapVisualizer.GetMap(simulation.Map));
